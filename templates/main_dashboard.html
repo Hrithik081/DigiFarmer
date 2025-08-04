@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Rural Development</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-image: url("{{ url_for('static', filename='dashboard.jpeg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black for readability */
+            padding: 50px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 900px;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            margin: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        button.documents {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button.digicard {
+            background-color: #008CBA;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1.25rem;
+            }
+            button {
+                padding: 10px 20px;
+                font-size: 1.25rem;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            button {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+        <p>Choose one of the following options:</p>
+        <a href="{{ url_for('documents_dashboard') }}">
+            <button class="documents">Documents</button>
+        </a>
+        <a href="{{ url_for('digicard_dashboard') }}">
+            <button class="digicard">DigiCard</button>
+        </a>
+        <br>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>

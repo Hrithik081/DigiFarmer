@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiCard - View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .profile-image {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .qr-code {
+            margin: 20px 0;
+        }
+        img.qr-code-img {
+            width: 150px;
+            height: 150px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your DigiCard</h1>
+
+    <!-- Profile Image -->
+    {% if profile_picture %}
+        <img src="{{ url_for('view_file', filename=profile_picture) }}" alt="Profile Picture" class="profile-image">
+    {% else %}
+        <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-image">
+    {% endif %}
+
+    <!-- Profile Details -->
+    <div class="details">
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Phone:</strong> {{ phone }}</p>
+        <p><strong>Address:</strong> {{ address }}</p>
+    </div>
+
+    <!-- QR Code Image -->
+    <div class="qr-code">
+        <img src="data:image/png;base64,{{ qr_img_data }}" alt="QR Code" class="qr-code-img">
+    </div>
+
+    <button onclick="window.print()">Print DigiCard</button>
+    <!-- <a href="{{ url_for('main_dashboard') }}">Dashboard</a>
+    <button onclick="window.location.href='{{ url_for('main_dashboard') }}'">Dashboard</button> -->
+    <a href="{{ url_for('main_dashboard') }}" style="text-decoration: none;">
+        <button>Dashboard</button>
+    </a>
+    
+
+</div>
+
+</body>
+</html>

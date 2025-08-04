@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Rural Development</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light gray background for the whole page */
+    background-image: url("{{ url_for('static', filename='documents.jpeg') }}");
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+.container {
+    background-color: #ffffff; /* White background for the container */
+    max-width: 600px;
+    margin: 20px; /* Margin around the container for spacing */
+    padding: 30px; /* More padding for inner content */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem; /* Larger font size for the main heading */
+    color: #333; /* Dark color for contrast */
+}
+
+p {
+    text-align: center;
+    font-size: 1.2rem; /* Slightly larger paragraph text */
+    color: #666; /* Medium gray for the paragraph */
+}
+
+form {
+    margin-bottom: 20px; /* Space between forms */
+}
+
+label {
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Space below labels */
+    font-size: 1.1rem; /* Slightly larger font size for labels */
+    color: #333; /* Dark color for labels */
+}
+
+input[type="file"] {
+    width: 100%; /* Full width for file inputs */
+    padding: 10px; /* Padding inside file inputs */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 6px; /* Rounded corners for inputs */
+    margin-bottom: 20px; /* Space below file inputs */
+}
+
+button {
+    background-color: #4CAF50; /* Green for primary buttons */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding for buttons */
+    border-radius: 6px; /* Rounded corners for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1.1rem; /* Slightly larger font size for buttons */
+    width: 100%; /* Full width buttons */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.file-list {
+    list-style-type: none; /* No bullets */
+    padding: 0; /* No padding */
+}
+
+.file-list li {
+    background-color: #f9f9f9; /* Light background for list items */
+    padding: 10px; /* Padding for list items */
+    margin: 10px 0; /* Margin between list items */
+    border-radius: 6px; /* Rounded corners */
+    display: flex; /* Flexbox for alignment */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center align items */
+}
+
+.file-list a {
+    color: #4CAF50; /* Green color for links */
+    text-decoration: none; /* No underline */
+}
+
+.file-list a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.file-list button {
+    background-color: red; /* Red for delete buttons */
+    padding: 5px 10px; /* Padding for delete buttons */
+}
+
+.file-list button:hover {
+    background-color: darkred; /* Darker red on hover */
+}
+
+a.logout {
+    display: inline-block; /* Inline block for logout link */
+    margin-top: 20px; /* Space above the logout link */
+    color: #008CBA; /* Blue color for logout */
+    text-decoration: none; /* No underline */
+    font-size: 1.2rem; /* Larger font size for logout */
+}
+
+a.logout:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}!</h1>
+        <p>This is your dashboard. You can manage rural development services here.</p>
+
+        <!-- To-Do List Section -->
+        <h2>To-Do List: Upload Documents</h2>
+        
+        <!-- Form for uploading Aadhar card -->
+        <form action="{{ url_for('upload_file', file_type='aadhar') }}" method="POST" enctype="multipart/form-data">
+            <label for="aadhar">Upload Aadhar Card:</label>
+            <input type="file" id="aadhar" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <!-- Form for uploading PAN card -->
+        <form action="{{ url_for('upload_file', file_type='pan') }}" method="POST" enctype="multipart/form-data">
+            <label for="pan">Upload PAN Card:</label>
+            <input type="file" id="pan" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        <!-- Display uploaded files -->
+        <h3>Uploaded Files</h3>
+        <ul class="file-list">
+            {% for file in uploaded_files %}
+                <li>
+                    {{ file }} 
+                    <a href="{{ url_for('view_file', filename=file) }}" target="_blank">View</a>
+                    <form action="{{ url_for('delete_file', filename=file) }}" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>
